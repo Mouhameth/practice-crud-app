@@ -1,0 +1,57 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+.navbar{
+    top: 0;
+    left: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar #lock{
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 200;
+    transition: 0.3s ease;
+    color: #33b5e5;
+    padding-top: 8px;
+}
+
+
+
+.navbar #lock:hover{
+    color: red;
+    transition: 1.5s ease;
+}
+
+.navbar #text{
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 100;
+    transition: 0.3s ease;
+    color: #33b5e5;
+}
+.navbar #text:hover
+{
+    color: black;
+    transition: 1.5s ease;
+}
+
+.navbar .navbar-nav  .nav-link{
+    padding: 0 20px;
+}
+
+nav button {
+    background-color: black;
+}
+
+nav button span{
+    color: white;
+}
+
+nav button span:focus{
+    color: white;
+    background-color: goldenrod;
+}
+
+#navbarSupportedContent > ul{
+    text-align: right;
+}
+

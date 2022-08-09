@@ -1,0 +1,18 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+body{
+    margin-top:20px;
+    background:#f8f8f8
+}
+
+.modal-title{
+  font-size: 14px;
+  font-weight: normal;
+}
+
+#btn {
+    border-radius: 25px;
+}
+
+#search{
+  width: 50%;
+}

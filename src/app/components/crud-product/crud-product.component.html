@@ -1,0 +1,225 @@
+<app-navbar-admin style="display: content;"></app-navbar-admin>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mt-5 text-info" *ngIf="productState$ | async as result" [ngSwitch]="result.dataState">
+<div class="row flex-lg-nowrap">
+  
+
+  <div class="col mt-5">
+    <div class="e-tabs mb-3 px-3">
+      <ul class="nav nav-tabs">
+        <li class="nav-item "><a class="nav-link active text-info" href="#">Produits</a></li>
+      </ul>
+    </div>
+
+    <form [formGroup]="searchForm">
+
+      <div class="form-group">
+        <input type="text" id="search" placeholder="Rechercher par nom ou cthégorie" class="form-control mt-4 mb-2" formControlName="name"
+        >
+    </div>
+
+    </form>
+
+    <div class="row flex-lg-nowrap">
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body" >
+            <div class="card-title">
+              <h6 class="mr-2"><span>Liste</span><small class="px-1">des produits</small></h6>
+            </div>
+            <div *ngSwitchCase="ProductStateEnum.LOADED"  class="e-table">
+              <div class="table-responsive table-lg mt-3">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th class="align-top">
+                        <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
+                          <input type="checkbox" class="custom-control-input" id="all-items">
+                          <label class="custom-control-label" for="all-items"></label>
+                        </div>
+                      </th>
+                      <th class="max-width">Libellé</th>
+                      <th class="sortable">Catégories</th>
+                      <th class="sortable">Prix</th>
+                      <th class="max-width">Quantité</th>
+                      <th class="sortable">Statut</th>
+                     
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of result.data">
+                      <td class="align-middle">
+                        <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+                          <input type="checkbox" class="custom-control-input" id="item-1">
+                          <label class="custom-control-label" for="item-1"></label>
+                        </div>
+                      </td>
+                      
+                      <td class="text-nowrap align-middle">{{product.name}}</td>
+                      <td class="text-nowrap align-middle"><span>{{product.category}}</span></td>
+                      <td class="text-nowrap align-middle">{{product.price}}</td>
+                      <td [ngClass]="product.quantity >0 ? 'text-nowrap align-middle text-success':'text-nowrap align-middle text-danger' "><span>{{product.quantity}}</span></td>
+                      <td [ngClass]="product.quantity >0 ? 'text-nowrap align-middle text-success':'text-nowrap align-middle text-danger' " ><span> <i class="fa fa-exclamation-triangle"></i></span></td>
+                      <td class="text-center align-middle">
+                        <div class="btn-group align-top">
+                            <button (click)="openFormModal(product)" class="btn btn-sm btn-outline-secondary badge text-info" type="button" ><i class="fa fa-pencil"></i></button>
+                            <button (click)="delete(product)"  class="btn btn-sm btn-outline-secondary badge text-danger" type="button"><i class="fa fa-trash"></i></button>
+                        </div>
+                      </td>
+                      
+                    </tr>
+
+                      
+                      
+                      
+                   
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+
+            <div *ngSwitchCase="ProductStateEnum.LOADING">
+              <div class="d-flex justify-content-center">
+                  <div class="spinner-border text-info" role="status">
+                   
+                  </div>
+                </div>
+          </div> 
+          
+          <div *ngSwitchCase="ProductStateEnum.ERROR" class="alert alert-info d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+            <div>
+              Vérifier votre connexion
+            </div>
+            
+          </div>
+
+          </div>
+         
+
+
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 mb-3">
+        <div *ngSwitchCase="ProductStateEnum.LOADED" class="card">
+          <div class="card-body">
+            <div class="text-center px-xl-3">
+              <button class="btn btn-info btn-block text-white" (click)="openAddProduct()" type="button" data-toggle="modal" data-target="#user-form-modal"><i class="fa fa-plus"></i> Nouveau produit</button>
+            </div>
+            <hr class="my-3">
+            <div class="e-navlist e-navlist--active-bold">
+              <ul class="nav">
+                <li class="nav-item active">Nombre de produits : {{result.data.length}}</li>
+              </ul>
+            </div>
+            <hr class="my-3">
+           
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+</div>
+
+<div
+    class="modal fade"
+    id="myModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-info" id="exampleModalLabel">{{action}}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="productForm">
+            <div class="form-group">
+                <input type="text" placeholder="libellé" class="form-control" formControlName="name"
+                [ngClass]="{'is-invalid':submitted && productForm.controls.name.errors}">
+                <div *ngIf="submitted && productForm.controls.name.errors" class="invalid-feedback">  
+                    <div *ngIf="productForm.controls.name.errors.required" style="font-size: 10px;">
+                       Le libellé est obligatoire
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+              <input type="text" placeholder="quantité" class="form-control" formControlName="quantity"
+              [ngClass]="{'is-invalid':submitted && productForm.controls.quantity.errors}">
+              <div *ngIf="submitted && productForm.controls.quantity.errors" class="invalid-feedback">  
+                  <div *ngIf="productForm.controls.quantity.errors.required" style="font-size: 10px;">
+                     La quantité est obligatoire
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <input type="text" placeholder="prix" class="form-control" formControlName="price"
+            [ngClass]="{'is-invalid':submitted && productForm.controls.price.errors}">
+            <div *ngIf="submitted && productForm.controls.price.errors" class="invalid-feedback">  
+                <div *ngIf="productForm.controls.price.errors.required" style="font-size: 10px;">
+                   Le prix est obligatoire
+                </div>
+            </div>
+        </div>
+
+            <div class="form-group mt-3">   
+                <select class="my-3" class="form-control" formControlName="category" [ngClass]="{'is-invalid':submitted && productForm.controls.category.errors}">
+                    <div *ngIf="submitted && productForm.controls.category.errors" class="invalid-feedback">  
+                        <div *ngIf="productForm.controls.category.errors.required" style="font-size: 10px;">
+                            Le type est obligatoire
+                         </div>
+                    </div>
+                    <option value="">Catégorie</option>
+                    <option value="Alimentaire">Alimentaire</option>
+                    <option value="Cuisine">Cuisine</option>
+                    <option value="Sanitaire">Sanitaire</option>
+                    <option value="Electronique">Electronique</option>
+                    <option value="Informatique">Informatique</option>
+                    <option value="Maison">Maison</option>
+
+                </select>
+              </div>
+
+              
+
+        </form>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="validate()" id="btn" class="btn btn-info text-white ">
+            valider
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+</svg>

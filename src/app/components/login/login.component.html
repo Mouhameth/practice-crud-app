@@ -1,0 +1,66 @@
+<section>
+    <div class="container">
+        <div class="form">
+            <h2 >Connexion</h2>
+            <form [formGroup]="loginForm">
+                <div class="form-group  ">
+                    <input type="text" placeholder="Email" class="form-control" formControlName="email"
+                        [ngClass]="{'is-invalid':submitted && loginForm.controls.email.errors}">
+                    <div *ngIf="submitted && loginForm.controls.email.errors" class="invalid-feedback">
+                        <div *ngIf="loginForm.controls.email.errors.required" style="font-size: 10px;">
+                            Le username est obligatoire
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <input type="password" placeholder="Mot de passe" class="form-control" formControlName="password"
+                        [ngClass]="{'is-invalid':submitted && loginForm.controls.password.errors}">
+                    <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-feedback">
+                        <div *ngIf="loginForm.controls.password.errors.required" style="font-size: 10px;">
+                            Le mot de passe est obligatoire
+                        </div>
+                    </div>
+                </div>
+                  
+                <!-- <div *ngSwitchCase="LoginStateEnum.ERROR"  >
+                    <p style="color: red; font-size: 10px; margin: 2px;"><span class="fa fa-exclamation-triangle"></span> login ou mot de passe incorrect</p>
+                </div>
+
+                <div *ngSwitchCase="LoginStateEnum.LOADED"  >
+                    <p style="color: red; font-size: 10px; margin: 2px;"><span class="fa fa-exclamation-triangle"></span> Vous avez déjà joué</p>
+                </div> -->
+    
+                <div class="inputBox mt-4">
+                    <input class="btn btn-success" type="submit" (click)="login()" value="Se connecter">
+                </div>
+
+                <!-- <div *ngSwitchCase="LoginStateEnum.ERROR" class="inputBox mt-4">
+                    <input class="btn btn-success" type="submit" (click)="login()" value="Se connecter">
+                </div>
+                <div *ngSwitchCase="LoginStateEnum.LOADED" class="inputBox mt-4">
+                    <input class="btn btn-success" type="submit" (click)="login()" value="Se connecter">
+                </div>
+                <div *ngSwitchCase="LoginStateEnum.LOADING">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-info" role="status">
+                         
+                        </div>
+                      </div>
+                </div> -->
+            
+    
+                <!-- <div *ngSwitchCase="LoginStateEnum.INITIAL" class="inputBox">
+                            <input type="submit" (click)="goHome()" value="Se connecter">
+                        </div>
+                        <div *ngSwitchCase="LoginStateEnum.ERROR" class="inputBox">
+                            <input type="submit" (click)="goHome()" value="Se connecter">
+                        </div>
+     -->
+                       
+    
+            </form>
+        </div>
+    </div>
+    
+    </section>
