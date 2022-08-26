@@ -1,5 +1,8 @@
 # practice-crud-app
 test app with beOpenIT company
 
-#le lien de l'image docker
-https://hub.docker.com/r/mouhameth/practice-crud-go
+#les liens des images docker
+- api
+  https://hub.docker.com/repository/docker/mouhameth/pratice-crud-go_api
+- db
+  https://hub.docker.com/repository/docker/mouhameth/pratice-crud-go_db
