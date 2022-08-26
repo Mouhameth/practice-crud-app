@@ -39,7 +39,7 @@ export class AddProductComponent implements OnInit {
     );
   }
 
-  addQuestion(){
+  addProduct(){
     this.submitted =true
     if(this.textForm.invalid)
     return;
@@ -53,19 +53,8 @@ export class AddProductComponent implements OnInit {
     this.formModal.show();
   }
   saveSomeThing() {
-    // confirm or save something
     console.log(this.reponseForm.value)
     this.submittedRes = true
-    // if(!this.Product.question || this.reponseForm.invalid)
-    //   return;
-    //   this.res.push({reponse:this.reponseForm.controls.text.value,genre:this.reponseForm.controls.genre.value}  )
-    // console.log(this.res);
-    
-    // this.Product.reponses = this.res
-
-    // console.log(this.Product);
-    
-
     this.reponseForm.reset()
     this.formModal.hide();
 
@@ -83,8 +72,6 @@ export class AddProductComponent implements OnInit {
      //this.res.splice(index)
   }
 
-  deleteQuestion(){
-    this.Product = {}
-  }
+ 
 
 }

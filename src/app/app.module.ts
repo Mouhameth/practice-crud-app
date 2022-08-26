@@ -16,7 +16,7 @@ import { NavbarAdminComponent } from './components/navbar-admin/navbar-admin.com
 import { productReducer } from './state/product.reducer';
 import { ProductEffects } from './state/product.effect';
 import { AddProductComponent } from './components/add-product/add-quizz.component';
-
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { AddProductComponent } from './components/add-product/add-quizz.componen
     CrudProductComponent,
     HomeAdminComponent,
     NavbarAdminComponent,
-    AddProductComponent
+    AddProductComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

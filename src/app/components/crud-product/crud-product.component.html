@@ -12,14 +12,9 @@
       </ul>
     </div>
 
-    <form [formGroup]="searchForm">
-
       <div class="form-group">
-        <input type="text" id="search" placeholder="Rechercher par nom ou cthégorie" class="form-control mt-4 mb-2" formControlName="name"
-        >
+        <input type="text" id="search" placeholder="Rechercher par nom ou cthégorie" [(ngModel)]="filterString" class="form-control mt-4 mb-2" >
     </div>
-
-    </form>
 
     <div class="row flex-lg-nowrap">
       <div class="col mb-3">
@@ -49,7 +44,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let product of result.data">
+                    <tr *ngFor="let product of result.data |filter:filterString">
                       <td class="align-middle">
                         <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
                           <input type="checkbox" class="custom-control-input" id="item-1">

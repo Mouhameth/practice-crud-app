@@ -8,7 +8,7 @@
       <div class="col mt-5">
         <div class="e-tabs mb-3 px-3">
           <ul class="nav nav-tabs">
-            <li class="nav-item "><a class="nav-link active text-info" href="#">Ajouter Product</a></li>
+            <li class="nav-item "><a class="nav-link active text-info" href="#">Ajouter Produit</a></li>
           </ul>
         </div>
     
@@ -17,7 +17,7 @@
             <div class="e-panel card">
               <div class="card-body">
                 <div class="card-title">
-                  <h6 class="mr-2"><span>Information</span><small class="px-1">sur le Product</small></h6>
+                  <h6 class="mr-2"><span>Information</span><small class="px-1">sur le Produit</small></h6>
                 </div>
                 <form [formGroup]="textForm">
                     <div class="form-group">
@@ -31,7 +31,7 @@
                     </div>
 
                     
-                        <input class="btn btn-info mt-4 text-white" type="submit" (click)="addQuestion()" value="Valider  la  question">
+                        <input class="btn btn-info mt-4 text-white" type="submit" (click)="addProduct()" value="Valider  la  question">
                         <br>
                        
 
@@ -56,7 +56,7 @@
                  
                    <div *ngSwitchCase="ProductStateEnum.LOADED"  >
                     <button type="button" class="btn btn-success mt-3" (click)="validerProduct()">
-                               Valider  le  Product
+                               Valider  le  Produit
                              </button>          
                    </div>
 
@@ -76,20 +76,6 @@
               <div class="card-body">
                 <div class="text-center px-xl-3">
                   Détails Product
-                <!-- </div>
-                <hr class="my-3">
-                <div class="e-navlist e-navlist--active-bold">
-                  <ul class="nav">
-                    <li *ngIf="Product.question" class="nav-item active">Question :  {{Product.question}} <i (click)="deleteQuestion()"  class="bi bi-x-lg text-danger"></i></li>
-                    </ul>
-                </div>
-               <div *ngIf="Product.reponses">
-                <div class="e-navlist e-navlist--active-bold">
-                    <ul class="nav">
-                      <li *ngFor="let in of Product?.reponses; let i = index" class="nav-item active">Reponse {{i+1}} :  {{Product.reponses[i].reponse}}, genre: {{Product.reponses[i].genre}} <i (click)="deleteItem(i)"  class="bi bi-x-lg text-danger"></i></li>
-                      </ul>
-                  </div>
-               </div> -->
                 
               </div>
             </div>

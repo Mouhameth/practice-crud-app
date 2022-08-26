@@ -21,6 +21,7 @@ export class CrudProductComponent implements OnInit {
   submitted : boolean = false
   action : string = ""
   ID : number = 0
+  filterString: string ='';
   constructor(private router:Router,private fb:FormBuilder, private store : Store<any> ) { }
 
   productForm = this.fb.group({
@@ -31,10 +32,10 @@ export class CrudProductComponent implements OnInit {
 
   })
 
-  searchForm = this.fb.group({
-    name: ["", Validators.required]
+  // searchForm = this.fb.group({
+  //   name: ["", Validators.required]
 
-  })
+  // })
 
   ngOnInit(): void {
     this.store.dispatch(new OnGetProductAction({}))
@@ -91,5 +92,10 @@ export class CrudProductComponent implements OnInit {
     }
   }
 
- 
+  search(e:any,data:Product[]){
+   data.filter((x => x.Name === e.target.value || x.Category === e.target.value))
+    
+  }
+
+
 }
